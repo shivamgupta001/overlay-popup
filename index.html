@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	body{
+		display: flex;
+		justify-content: center;
+		align-items : center;
+		position: absolute;
+		top : 0px;
+		left : 0px;
+		right : 0px;
+		bottom : 0px;
+	}
+
+	.comp{
+		
+		
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction : column;
+		background-color: bisque;
+		box-shadow: 5px 5px 5px #888888;
+		border-radius : 5px;
+		transform: translate(-50% , 15px);
+		display: none;
+	}
+	.box{
+		border-top : 15px solid transparent;
+		border-right : 15px solid transparent;
+		border-left : 15px solid transparent;
+		border-bottom : 15px solid bisque;
+		position: absolute;
+		left : calc(50% - 15px);
+		top : -30px;
+
+	}
+
+	input{
+		margin: 10px;
+		border-radius : 5px;
+		height : 20px;
+	}
+	input:focus{
+		box-shadow: 5px 5px 5px grey;
+		border: none;
+	}
+	</style>
+</head>
+<body>
+	<button id="btn">click</button>	
+		
+		<div id="pop" class="comp">
+			<div class="box"></div>
+			<input type="text"  tabindex="1" placeholder="Enter Name">
+			<input type="text"  tabindex="2" placeholder="Enter Now">
+			<input type="text"  tabindex="3" placeholder="Enter Name">
+			<input type="text"  tabindex="4" placeholder="Enter Name"> 
+		</div>	
+	<script>
+		var btn = document.getElementById('btn');
+		btn.addEventListener('click',function(e){
+			var pop = document.getElementById('pop');
+			pop.style.display = 'flex';
+			pop.style.position = "absolute";
+			pop.style.left = e.x+'px';
+			pop.style.top = e.y+'px';
+			pop.children[1].focus();
+		});
+
+	</script>
+</body>
+</html>
