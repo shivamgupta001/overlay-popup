@@ -14,8 +14,7 @@
 		bottom : 0px;
 	}
 
-	.comp{
-		
+	.tf-overlay-menu{
 		
 		position: relative;
 		display: flex;
@@ -28,7 +27,7 @@
 		transform: translate(-50% , 15px);
 		display: none;
 	}
-	.box{
+	.tf-overlay-menu-box{
 		border-top : 15px solid transparent;
 		border-right : 15px solid transparent;
 		border-left : 15px solid transparent;
@@ -53,24 +52,66 @@
 <body>
 	<button id="btn">click</button>	
 		
-		<div id="pop" class="comp">
-			<div class="box"></div>
+		<!-- <div id="pop" class="tf-overlay-menu">
+			<div class="tf-overlay-menu-box"></div>
 			<input type="text"  tabindex="1" placeholder="Enter Name">
 			<input type="text"  tabindex="2" placeholder="Enter Now">
 			<input type="text"  tabindex="3" placeholder="Enter Name">
 			<input type="text"  tabindex="4" placeholder="Enter Name"> 
-		</div>	
+		</div> -->	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 		var btn = document.getElementById('btn');
 		btn.addEventListener('click',function(e){
-			var pop = document.getElementById('pop');
-			pop.style.display = 'flex';
-			pop.style.position = "absolute";
-			pop.style.left = e.x+'px';
-			pop.style.top = e.y+'px';
-			pop.children[1].focus();
+			var l = OverlayMenu.call({});
+			document.body.append(l);
+			l.position(e);
+			
 		});
 
 	</script>
+	<script type="text/javascript">
+		var OverlayMenu = function(){
+			var overlaymenu = {
+				
+				scope : this,
+				_init : function(){
+					this._generateTemplate();
+					this._cacheDom();
+					this._attachProperties();
+				
+					return this.outerComp;
+				},
+				_generateTemplate : function(){
+					var el = [
+						'<div control-type="tf-overlay-outer" class="tf-overlay-menu">',
+							'<div class="tf-overlay-menu-box"></div>',
+						'</div>'
+					].join('\n');
+
+					this.childTemplate = $(el)[0]; 
+				},
+				_cacheDom : function(){
+					this.outerComp = this.childTemplate;
+				},
+				_attachProperties : function(){
+					var me = this.scope;
+					this.outerComp.position = this.position.bind(this.outerComp);
+					
+				},
+				position : function(e){
+										
+					this.style.display = 'flex';
+					this.style.position = "absolute";
+					this.style.left = e.x+'px';
+					this.style.top = e.y+'px';
+					
+				}
+			};
+			return overlaymenu._init();
+		};
+	</script>
+
+
 </body>
 </html>
